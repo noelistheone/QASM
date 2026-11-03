@@ -1,0 +1,93 @@
+{
+  "status": "prepared_before_new_crosssource_predictions",
+  "created_utc": "2026-11-02T01:50:27.444289+00:00",
+  "question": "Do learned complex internal directions retain their development advantage on the previously observed material and stress benchmark, compared with matched physical updates, positive-diagonal learning and all original controls?",
+  "evidence_status": "Adaptive development benchmark reuse: LFP/NCM/FLY1 were already assessed forv1. Not an independently unseen/blind confirmation, even though new fitting uses onlyW/IC andTP.",
+  "old_freeze": "protocols/m4_real_assessment_frozen_v1.json",
+  "old_freeze_sha256": "ac66eac48b44ce8bea02a80967d088eb55fae9b31af3a6b04f3d53223580b397",
+  "conditions": {
+    "material_benchmark": [
+      "LFP",
+      "NCM"
+    ],
+    "related_family_stress": [
+      "FLY1"
+    ],
+    "fractions": [
+      0.1,
+      0.25,
+      0.5
+    ],
+    "query_ids": "Exactly original frozenqueryIDs, neverreselected."
+  },
+  "models": [
+    {
+      "family": "complex_unbounded",
+      "seeds": [
+        2026110207,
+        2026110208
+      ],
+      "source": "runs/m4_query_aware_extended_v1",
+      "selection": "Earliest minimum over all31TPcheckpoints,0..3000."
+    },
+    {
+      "family": "complex_bounded",
+      "seeds": [
+        2026110207,
+        2026110208
+      ],
+      "source": "runs/m4_query_aware_extended_v1",
+      "selection": "Same31TPcheckpoint rule."
+    },
+    {
+      "family": "internal_pointwise",
+      "seeds": [
+        2026110202,
+        2026110203
+      ],
+      "source": "runs/m4_internal_update_pilot_v1",
+      "selection": "Original selected checkpoint, no retraining/reselection."
+    },
+    {
+      "family": "internal_spatial",
+      "seeds": [
+        2026110202,
+        2026110203
+      ],
+      "source": "runs/m4_internal_update_pilot_v1",
+      "selection": "Original selected checkpoint, no retraining/reselection."
+    },
+    {
+      "family": "uniform_unbounded3",
+      "seeds": [
+        null
+      ],
+      "selection": "Fixed3steps"
+    },
+    {
+      "family": "uniform_bounded3",
+      "seeds": [
+        null
+      ],
+      "selection": "Fixed3steps,radius0.1"
+    }
+  ],
+  "new_prediction_rows": 90,
+  "input_state": "SameoriginalLSQML1000object andprobe;input-onlynormalization;allqueriesconditiontheboundjointly.",
+  "primary_development_reference": "complex_unbounded",
+  "query_bound_contribution": "complex_bounded vscomplex_unbounded and ownuniformcontrol, plus same-weight development ablation. Noimposedpositive result.",
+  "controls": "Reuse every originalmain/aux score row:225rows/19families. Preserveoriginalmetrics andnumbers; mergeonlyina new analysis.",
+  "expected_total_rows_with_old": 315,
+  "metrics": "Reuse unchanged MeasurementMetrics: intensityrelativeRMSEprimary; amplitudeRMSE,fluenceand32fixedannular/sectorintegral errorssecondary. Integrals derivefromsameobservations, notindependentproperties.",
+  "macro": "Averageerrorsacrossseeds,then equalcondition/scanmaterialmacro6conditions; FLY1separate3conditions. Report allconditions, bothseeds, originalcontrols; nooraclebestmodelpercondition.",
+  "prediction_io": "ResponseCase(role=None); querycoordinatesallowed,queryvaluesunavailable. OnlyVisiblePtychoMeasurements.frames suppliesinnerlabels. Exportall90arraysandhashesbeforeseparatescoringopensqueryvalues.",
+  "conditions_required_before_freeze": [
+    "All4extendedfitscompleted",
+    "Full124checkpoint reviewwithall744conditionrows",
+    "Allselectedweighthashes andscientificsource/inputhashes fixed",
+    "Generated testsfornewprediction/scoringwiring",
+    "Pilotendpointreplaycompleted"
+  ],
+  "cost": "Recordactualforward/adjointframecounts,walltime,memory. Noisolatedefficiencyclaimfromconcurrentruns. LaterisolatedtimingincludesLSQMLinitialization.",
+  "future_confirmation": "Newindependentcohort/measurementcontract neededbeforestronggeneralizationclaim; currentexpandedbenchmarkisdevelopment evidence."
+}

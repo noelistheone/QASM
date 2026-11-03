@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "purpose": "Execute the fixed action contract using a transparent learned-PCA Gaussian reference before training a policy. This is an established Gaussian goal-design control, not a new-method claim.",
+  "action_contract": "m2_acquisition_actions_v1.json",
+  "prior": "Training8000 images only; centered randomized PCA maxrank128, oversampling32, four power iterations; independent standard Gaussian latent coefficients",
+  "ranks": [
+    64,
+    128
+  ],
+  "approximation_error": "Per-real-channel variance of discarded PCA signal estimated on train8000 and added to instrument noise variance. Query readout adds train-average discarded-field energy. Omitted-mode cross-correlations are not modeled; no claim this is the true image posterior.",
+  "pca_seed": 20261113,
+  "noise_seed": 20261112,
+  "policy_seed": 20261114,
+  "initial_validation_objects": "first20 IDs in the existing validation split, fixed order; method-development prototype, no final assessment",
+  "policies": [
+    "uniform",
+    "random",
+    "image_variance",
+    "first_order",
+    "second_order"
+  ],
+  "objective": "All15 normalized query squared errors, equal weight; both plug-in and Gaussian mean responses retained",
+  "uniform_rule": "Choose remaining block with largest circular distance to selected block centers; lowest-index tie break",
+  "random_rule": "Fixed per-object RNG; no look-ahead truth",
+  "image_rule": "Maximize tr(U^T U Delta)",
+  "first_order_rule": "Maximize sum_j 4(Q_j mu+s_j)^T Delta (Q_j mu+s_j)/scale_j^2",
+  "second_order_rule": "Same first-order term plus sum_j 2tr(Q_j Delta Q_j Delta)/scale_j^2; exact expected Bayes-risk reduction only inside the declared Gaussian surrogate",
+  "selection": "No policy or rank chosen on truth; report both ranks and all policies across additional budgets0–10",
+  "official_test_opened": false
+}

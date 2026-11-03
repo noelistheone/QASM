@@ -1,0 +1,23 @@
+{
+  "status": "fixed_before_joint_summary_scoring",
+  "created": 1793591692.12319,
+  "script_sha256": "6759e96945f676b5ee6fcec941b720f7a3ad56db1e17f02b8a63f22a3cd4e838",
+  "fixed_execution_sha256": "654979162de2df6213cfae9934598e074b00ee58eb5152fbaab078c20018b0aa",
+  "gauge_execution_sha256": "fb28931894bebc8ff5d4111921c85b51c8801e1b77e9ae89a03ec3efa528be3d",
+  "primary": "Six unchanged fixed-probe plus six gauge-fixed joint-probe trajectories, all 30 outputs each.",
+  "secondary": "All six original ungauged joint-probe attempts, retain partial predictions and explicit missing endpoints for failed fits.",
+  "scope": "Previously scored view 1; retrospective controls. No new blind test, network training or query-selected hyperparameters.",
+  "metrics": [
+    "relative_intensity_rmse",
+    "signed_poisson_corrected_mse",
+    "poisson_deviance_per_count",
+    "predicted_to_observed_fluence"
+  ],
+  "pooling": [
+    1,
+    4,
+    16
+  ],
+  "initial_protocol_sha256": "e4df64250b52e035541c0401fb2256c57e95e4859bba912745bf6589a84aba9d",
+  "startup_fix": "Explicit sibling-module import path required by Python -I; failure occurred before reading predictions or queries."
+}

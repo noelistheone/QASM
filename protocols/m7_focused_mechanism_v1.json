@@ -1,0 +1,187 @@
+{
+  "status": "frozen_for_focused_comparison",
+  "created": "2026-11-02T04:35:37.082239+00:00",
+  "question": "Does response-oriented spatial moment learning add predictive value beyond image-space moment learning, and does the same PSD multi-field mechanism transfer to experimental counts?",
+  "born": {
+    "models": [
+      "nppc_sample",
+      "nppc_fixed"
+    ],
+    "seeds": [
+      20261120,
+      20261121,
+      20261122
+    ],
+    "noise_seeds": [
+      20270111,
+      20270112,
+      20270113
+    ],
+    "noise_multiplier": 1,
+    "mask_order": 0,
+    "budgets": [
+      0,
+      2,
+      5,
+      10
+    ],
+    "objects": 100,
+    "queries": 35,
+    "primary_queries": "new20",
+    "variants": [
+      "raw",
+      "rescaled",
+      "constant",
+      "rescaled_tail",
+      "constant_tail"
+    ],
+    "calibration": "Existing image-residual statistics fitted on covariance_train4000, no new fitting",
+    "comparison": "Existing frozen response-state, Ridge, direct and joint arrays on the identical objects/queries",
+    "selection": "All seeds and all declared variants; no test-dependent selection"
+  },
+  "real": {
+    "models": [
+      "moment",
+      "coherent",
+      "direct"
+    ],
+    "seeds": [
+      20270121,
+      20270122,
+      20270123
+    ],
+    "energies": [
+      8,
+      12
+    ],
+    "counts": [
+      60,
+      150,
+      300
+    ],
+    "probe": [
+      "fixed",
+      "free_gauge"
+    ],
+    "state_epoch": 1000,
+    "queries": 120,
+    "checkpoint": "Existing selected step{best_step}.pt named by each completed summary; no new selection",
+    "mechanism": "Global coherent field plus four residual fields, summed squared physical propagation; compare single-field and direct readout",
+    "prediction": "144 arrays: all 108 model configurations plus 36 same-checkpoint moment-no-factors ablations, then score all.",
+    "scope": "Retrospective extension of completed source-transfer test; no new blind-source or material-independence claim"
+  },
+  "additional_scope": "One bounded round. Use outcomes to focus manuscript; no broad new audit or universal-win requirement.",
+  "models": {
+    "runs/m2_nppc_20261101/sample_seed20261120/best.pt": {
+      "group": "nppc",
+      "sha256": "a5fc2bfdff65995e026a049f12d49bb50da415524d0b27a63bb758d5a7b7c5e7",
+      "best_step": 4000
+    },
+    "runs/m2_nppc_20261101/sample_seed20261121/best.pt": {
+      "group": "nppc",
+      "sha256": "22e1c3a0bc677b78c6764b74a27624821f443b01b2265756552b06099d4eda9a",
+      "best_step": 2800
+    },
+    "runs/m2_nppc_20261101/sample_seed20261122/best.pt": {
+      "group": "nppc",
+      "sha256": "8c964e852ead15828ebd455a234c3646fa78681daa119c6b69f5b950206084b6",
+      "best_step": 4000
+    },
+    "runs/m2_nppc_20261101/fixed_seed20261120/best.pt": {
+      "group": "nppc",
+      "sha256": "6873117f79b2d6de9eff3cfd6ae72096a40d5183114f1feb888a4e8199dbc406",
+      "best_step": 4000
+    },
+    "runs/m2_nppc_20261101/fixed_seed20261121/best.pt": {
+      "group": "nppc",
+      "sha256": "a7129aa002c48c8194b945c13ef8cfe8a20ed71fadbb3846829ea601d717c7a5",
+      "best_step": 4000
+    },
+    "runs/m2_nppc_20261101/fixed_seed20261122/best.pt": {
+      "group": "nppc",
+      "sha256": "842572f93f093d23522f330fed4edc8d01b0f89e33ffe62501b8296a697583ed",
+      "best_step": 4000
+    },
+    "runs/m4_real_response_learning_v1/direct_20270121/step2500.pt": {
+      "group": "real",
+      "kind": "direct",
+      "seed": 20270121,
+      "sha256": "7cd0717ca0778b9317d0c39a4080c9d7496af9af9ce26feedc038f4f911f67e1",
+      "best_step": 2500
+    },
+    "runs/m4_real_response_learning_v1/direct_20270123/step3000.pt": {
+      "group": "real",
+      "kind": "direct",
+      "seed": 20270123,
+      "sha256": "d1d9fe4af26df63a9283b6d6e15183d4e12e3d6a32d0b25ca61d50b924ea0e34",
+      "best_step": 3000
+    },
+    "runs/m4_real_response_learning_v1/coherent_20270123/step2750.pt": {
+      "group": "real",
+      "kind": "coherent",
+      "seed": 20270123,
+      "sha256": "f2661c233289e79dd55e424b7093e53c4f2974a4ff6e03d9044aedfdad77ec5b",
+      "best_step": 2750
+    },
+    "runs/m4_real_response_learning_v1/moment_20270121/step1500.pt": {
+      "group": "real",
+      "kind": "moment",
+      "seed": 20270121,
+      "sha256": "549de270964151bebcf868a07fa10e74b8b24a025b80a92dccaaf4c72632b89d",
+      "best_step": 1500
+    },
+    "runs/m4_real_response_learning_v1/coherent_20270122/step2750.pt": {
+      "group": "real",
+      "kind": "coherent",
+      "seed": 20270122,
+      "sha256": "c0a07edbcb30bf7e8160f2556115e95db57761f5038a65fe9e2a30b461b9f279",
+      "best_step": 2750
+    },
+    "runs/m4_real_response_learning_v1/moment_20270123/step3000.pt": {
+      "group": "real",
+      "kind": "moment",
+      "seed": 20270123,
+      "sha256": "a55b6ead1b07c6615d87a2aacff3ef52f5fdf1ff1b7c556961d3701c2c73c428",
+      "best_step": 3000
+    },
+    "runs/m4_real_response_learning_v1/coherent_20270121/step1500.pt": {
+      "group": "real",
+      "kind": "coherent",
+      "seed": 20270121,
+      "sha256": "2a25e4f05bb8f58c8cf98f8db05ccb69da58efca065d8c9ba4becb09299e5334",
+      "best_step": 1500
+    },
+    "runs/m4_real_response_learning_v1/direct_20270122/step3000.pt": {
+      "group": "real",
+      "kind": "direct",
+      "seed": 20270122,
+      "sha256": "cbd02f410f177fc6a2ab8d023542f3f807cbd7a92b376f04702bd1ba7f126fc3",
+      "best_step": 3000
+    },
+    "runs/m4_real_response_learning_v1/moment_20270122/step2750.pt": {
+      "group": "real",
+      "kind": "moment",
+      "seed": 20270122,
+      "sha256": "574314074ac81ea3906144ab73a56f83a2a26ceefb66d9c9953e299859013757",
+      "best_step": 2750
+    }
+  },
+  "states": {
+    "runs/m4_broadband_extended_v1/e8_n60_fixed/physical_state_1000.npz": "7ba0e51ebd6aa07e36cb53fd607557090852ea31db83d79bcdcb31329595f51c",
+    "runs/m4_broadband_gauge_v1/e8_n60_free/physical_state_1000.npz": "15a3da921d446d57d6e8f75f34e8bd394c6cb8efb3dbccbaeccf800e1e10ab95",
+    "runs/m4_broadband_extended_v1/e8_n150_fixed/physical_state_1000.npz": "4b5c8189f71ba14aae19e5dea257935cccdd440f88996cb7d18844c898f66c35",
+    "runs/m4_broadband_gauge_v1/e8_n150_free/physical_state_1000.npz": "67415c84b5248ad7fac7cf2a7265fa9e383a891cb4b63608c7cd8679beafc390",
+    "runs/m4_broadband_extended_v1/e8_n300_fixed/physical_state_1000.npz": "b6b7f2d73f06f3588d4ea94a62b5e7072df783cdc81c8a4ba91ae91184c8de19",
+    "runs/m4_broadband_gauge_v1/e8_n300_free/physical_state_1000.npz": "3fd154ff90200ce3e92cf1c0c27dda55d2fbcdd99f12601254acce24c0ef3d87",
+    "runs/m4_broadband_extended_v1/e12_n60_fixed/physical_state_1000.npz": "3ffe8b2bbe717125e9693b10f0819032394647585fc3f26ef718cbc00a147c2f",
+    "runs/m4_broadband_gauge_v1/e12_n60_free/physical_state_1000.npz": "1d2e3e22a600ca9e09869fe8d4262d23a3bfc5f468bdc1ccb51073506deaa129",
+    "runs/m4_broadband_extended_v1/e12_n150_fixed/physical_state_1000.npz": "76bb68d2174b2749e5ae47f2659e492e8de2e030ef4b36148cdec839f7d2ed41",
+    "runs/m4_broadband_gauge_v1/e12_n150_free/physical_state_1000.npz": "26e64f31bf20946ae2c518038b06b51d7c7f125e946e16dc53511ec5755e2e39",
+    "runs/m4_broadband_extended_v1/e12_n300_fixed/physical_state_1000.npz": "6b272787bc73a16bee8419e14d07d5bebe99c1a9374709157703567978518b81",
+    "runs/m4_broadband_gauge_v1/e12_n300_free/physical_state_1000.npz": "ee9d08f891b269bff330313d5af3aa70b12aed2137d640e355a1fbf20cb74481"
+  },
+  "scripts": {
+    "scripts/predict_m7_nppc.py": "5835cee64ad3f0aea21704270a51e2ce4bfd9fb8d4350ad445bb6db6bbf422d6",
+    "scripts/predict_m7_real_moments.py": "b3c7047b4ae54c0a0a218d26f950f9fa8d4ffff0e304565eba2b243f5240c412"
+  }
+}

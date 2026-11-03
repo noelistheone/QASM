@@ -1,0 +1,129 @@
+{
+  "schema_version": 1,
+  "status": "scientific_pilot_contract_before_training",
+  "created_utc": "2026-11-02T00:59:15.727088+00:00",
+  "question": "Does a learned positive spatial preconditioner improve withheld diffraction after three measurement-conditioned internal updates, relative to the identical unlearned updates and a pointwise learned control?",
+  "scope": "Training/development pilot only. Existing v1 material and stress scores have been observed; this pilot does not access them or relabel them blind.",
+  "roles": {
+    "train": {
+      "W": [
+        "W"
+      ],
+      "IC": [
+        "IC1",
+        "IC2"
+      ]
+    },
+    "validation": {
+      "TP": [
+        "TP1",
+        "TP2"
+      ]
+    },
+    "not_accessed": [
+      "FLY1",
+      "LFP",
+      "NCM",
+      "LCLS"
+    ]
+  },
+  "fractions": [
+    0.1,
+    0.25,
+    0.5
+  ],
+  "input": {
+    "initial": "Unchanged original v1 normalized LSQML1000 object, probe, calibrated positions and visible indices",
+    "labels": "Original training_ids in W/IC only for the outer loss; TP query_ids for validation only. All inner update targets are visible_ids.",
+    "model_state": "One coherent complex field; no physical mixed-state or calibrated covariance claim."
+  },
+  "method": {
+    "internal_steps": 3,
+    "visible_batch": 256,
+    "query_batch": 256,
+    "direction": "G=2 A*(w (|AB|^2-y) AB)/sum(w); D= -positive_spatial_weight*G/positive_coverage_denominator",
+    "positive_map": "(softplus(6*tanh(raw/6))+0.001), normalized to coverage-weighted mean one",
+    "coverage_floor": 0.0001,
+    "step": "Global one-dimensional minimum of exact intensity quartic on [0,1], endpoints included",
+    "derivative": "Complete finite-unroll derivatives; step IFT only on certified isolated nondegenerate interior branches or zero derivative on strict endpoints. Uncertified backward aborts and records failure; no substituted gradient.",
+    "features": "Existing nine common-phase invariant channels, using current state and gradient rescaled by sum(w)/2; weights shared across all three updates",
+    "precision": "complex64 / float32, no TF32; actual arithmetic nonincrease checked with declared numerical tolerance",
+    "visible_loss_scope": "Monotone inner visible objective at fixed observations; no theorem of unseen-data improvement",
+    "numerical_visible_tolerance": "5e-7 absolute plus 2e-5 times the expected visible half-MSE; actual next-state and final validation loss are checked against the polynomial."
+  },
+  "models": {
+    "uniform": "No learned weights, identical three exact-line updates",
+    "pointwise": "9->16->16->1, kernels1/1/1, SiLU, 449 parameters",
+    "spatial": "9->16->16->1, kernels3/3/1, SiLU, 3649 parameters"
+  },
+  "optimization": {
+    "seeds": [
+      2026110202,
+      2026110203
+    ],
+    "steps": 1000,
+    "checkpoints_every": 100,
+    "optimizer": "AdamW",
+    "learning_rate": 0.001,
+    "weight_decay": 1e-05,
+    "gradient_clip": 1.0,
+    "outer_loss": "Mean squared normalized raw detector intensity on original training_ids",
+    "scan_sampling": {
+      "W": 0.5,
+      "IC1": 0.25,
+      "IC2": 0.25
+    },
+    "fraction_sampling": "Equal among three pre-existing fractions",
+    "query_sampling": "256 original permitted training IDs, without replacement unless fewer available",
+    "checkpoint_selection": "Lowest equal TP1/TP2 x three budget relative intensity RMSE; ties earliest; include initialization0; retain every checkpoint and both seeds. This is validation, not fresh test performance."
+  },
+  "controls": {
+    "iterations": [
+      0,
+      1,
+      2,
+      3,
+      10,
+      30
+    ],
+    "meaning": "Uniform exact-line trajectory saved at fixed counts, including zero (unchanged input). Three steps is the matched operator-work control;10/30 are additional-cost context, never claimed matched.",
+    "labels": "All9 train conditions use full original training_ids; six TP conditions use query_ids. No material/stress targets.",
+    "baseline": "Retain existing native1000/5000 and prior v1 validation results as historical context; runtime and objective differ."
+  },
+  "metrics": {
+    "primary": "Equal TP scan and budget mean relative intensity RMSE, separately per seed and kind",
+    "secondary": [
+      "Every condition error",
+      "Uniform comparisons at matched three updates",
+      "Visible loss before/after and line branch certificates",
+      "Forward/adjoint frame counts, training time, measured allocated memory",
+      "All selected checkpoint parameters and files"
+    ]
+  },
+  "decision": {
+    "positive": "If spatial or pointwise internal learning consistently improves matched unlearned steps on TP and meaningful training-side held measurements, inspect attribution and freeze a separate follow-up study.",
+    "negative": "If changes are negligible or erase initialization quality, retain all curves and diagnose direction/gradient information rather than expand blind hyperparameter grids.",
+    "material_confirmation": "Requires a later transparent observed-benchmark evaluation plus independent confirmation; not part of this pilot."
+  },
+  "resources": {
+    "local_gpu0": "spatial seed2026110202",
+    "local_gpu1": "pointwise seed2026110202",
+    "remote_gpu0": "uniform trajectories then seed2026110203 learning if snapshot and environment checks pass",
+    "remaining_fit_schedule": "Second seed for both architectures, no duplicated completed jobs; use freed GPU slots."
+  },
+  "preflight": {
+    "generated_native_checks": [
+      "audit/m4_internal_native_checks_20261102/cpu/checks.json",
+      "audit/m4_internal_native_checks_20261102/gpu0/checks.json"
+    ],
+    "resource_profile": "audit/m4_internal_learning_profile_20261102/profile.json",
+    "profile_only_generated_outer_labels": true,
+    "max_profile_GiB": 12.3540682793,
+    "hashes": {
+      "audit/m4_internal_native_checks_20261102/cpu/checks.json": "e0b1c90af9dc2c2b31e04d77f3d5d2bbb8e8558ef2550f506f015072da2bee94",
+      "audit/m4_internal_native_checks_20261102/gpu0/checks.json": "9f5a4978e6d602f0870eb5a20c0254f258a0eb60213fb9d4f50cbd34f9cf1208",
+      "audit/m4_internal_learning_profile_20261102/profile.json": "c743cc7cf173913735eb9381f99f68ee0c79bd0c9356f9d8714f23c4d151509c"
+    }
+  },
+  "implementation_freeze_required": true
+}

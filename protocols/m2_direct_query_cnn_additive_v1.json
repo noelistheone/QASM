@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "status": "Frozen before any additive CNN fit; multiplicative CNN remains unchanged and reported separately",
+  "question": "Does the stronger additive shared-query readout explain transfer once the same spatial CNN is provided? Both scalar forms are retained, as in the completed small-head control.",
+  "backbone": "Same randomly initialized MaskPosteriorComponents raw UNet as random_current, same two input images and mask FiLM. Raw eight maps pooled to4x4, followed by128-feature LayerNorm; no Gram-Schmidt or covariance interpretation.",
+  "head": "Same201-128-128-1 GELU head andsamebackbone; q=q_mean+s(wavelength,band)*h. s fromoriginal15trainingRMS only, log-log piecewiselinear interpolation/extrapolation. No output clipping.",
+  "training": "Same4000covarianceobjects,4000steps,batch128,freshnoise andrandom0..9extra blocks,Adam1e-4,clip10. Seeds20261126/27/28. Draw unused futureaction exactlyasrandom_current toretain mask sampler RNG sequence. Original15labels only.",
+  "selection": "Original15normalizedMSE onfirst256validationobjects at0/2/5/9 every400steps; no newquery selection",
+  "evaluation": "All1000developmentobjects at0/2/5/9/10; original15 andnew20. Newquerylabels loadedaftercheckpointselection. NoGaussianconditioning orvariance-drivenaction claim fordirecthead.",
+  "normalization": "First66columns andlogquery statistics computed fromexisting16000cachedtrainingstates only. This adds no distincttrainingobjects orlabels.",
+  "compute": "Same freshstates/steps asrandom_current; extraheadparameters reported, actualruntime andmemory reported; losses have differentphysicalprojection costs.",
+  "official_test_opened": false,
+  "scientific_scope": "Predeclared follow-up prompted by completed smallheads, where additive transfers better thanmultiplicative. Do not reportonlytheweakerCNNcontrol."
+}

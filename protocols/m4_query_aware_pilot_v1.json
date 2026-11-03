@@ -1,0 +1,91 @@
+{
+  "status": "scientific_contract_before_training",
+  "created_utc": "2026-11-02T01:31:38.671343+00:00",
+  "question": "Can learned complex update directions with a query-operator intensity-change bound improve unseen-measurement prediction over matched uniform updates and the same learned directions without that bound?",
+  "design_history": "Motivated after complete positive-diagonal pilot and truth-dependent direction/trust diagnostics. Radius0.1 was informed by those development diagnostics; it is not claimed independently selected or physically calibrated noise.",
+  "roles": {
+    "train": [
+      "W",
+      "IC1",
+      "IC2"
+    ],
+    "validation": [
+      "TP1",
+      "TP2"
+    ],
+    "not_accessed": [
+      "FLY1",
+      "LFP",
+      "NCM",
+      "LCLS"
+    ]
+  },
+  "fractions": [
+    0.1,
+    0.25,
+    0.5
+  ],
+  "models": [
+    "complex_unbounded",
+    "complex_bounded"
+  ],
+  "controls": [
+    "uniform_unbounded_three",
+    "uniform_bounded_three"
+  ],
+  "model": {
+    "parameters": 3666,
+    "network": "9->16->16->2 spatial3x3/3x3/1x1 SiLU, zero final layer; one shared network for3internalsteps",
+    "direction": "Coverage-whitened gradient plus a learned real-inner-product-orthogonal complex component; orthogonal norm<=2 gradient norm; normalize total whitened norm to gradient norm; strict visible descent cosine>=1/sqrt5.",
+    "phase": "Existing nine invariant features; phase-equivariant complex latent map",
+    "query_bound": "For fixed current B,D and requested query operator A_Q, derive a sufficient norm cap from Delta I=t v+t^2 a. Smoothed upper norm coefficients, relative smoothing1e-6, radius0.1. Then exact visible quartic line solve on[0,1].",
+    "state": "Single coherent complex field, common original LSQML1000 initialization. No extra object targets."
+  },
+  "method": {
+    "steps": 3,
+    "radius": 0.1,
+    "visible_batch": 256,
+    "query_batch": 256,
+    "query_positions_train": "The same sampled256 permitted outer-training positions; positions enter bound, values only enter outer loss. Duplicate-free with existing cohort.",
+    "query_positions_validation": "All fixed TP query_ids jointly; no query values enter model or bound.",
+    "query_positions_training_endpoint": "All permitted training_ids jointly when recording selected model training endpoints; query-conditioned state may differ from a minibatch-conditioned training state.",
+    "differentiation": "Finite3step full derivatives, isolated quartic branchIFT; query-cap strict clipping branch. Checkpointed query-statistics batches recompute their forward pass during backward. Uncertified branch fails visibly."
+  },
+  "optimization": {
+    "seeds": [
+      2026110207,
+      2026110208
+    ],
+    "steps": 1000,
+    "checkpoints_every": 100,
+    "optimizer": "AdamW",
+    "learning_rate": 0.001,
+    "weight_decay": 1e-05,
+    "gradient_clip": 1.0,
+    "sampling": {
+      "W": 0.5,
+      "IC1": 0.25,
+      "IC2": 0.25
+    },
+    "fractions": "equal",
+    "loss": "Mean squared normalized experimental intensity on original train IDs",
+    "selection": "Lowest TP1/TP2 x3budgets equal relative intensity RMSE; include0, tiesearliest; all44checkpoints retained; bothseeds reported"
+  },
+  "metrics": [
+    "TP mean andall6condition errors for eachseed",
+    "Matched uniform control at3steps for eachbounded/unbounded variant",
+    "Selected training endpoints9conditions",
+    "Visible/quartic branch,query cap,query intensity-change guarantees",
+    "Measured training memory/time; inference operator calls accountforadditionalqueryprojections"
+  ],
+  "cost": "Eachinnerstep has2visibleforwards+1visibleadjoint. Bounded variants also have2queryforwards; checkpoint recomputation and backprop areadditional. Do not call bounded/unbounded identical totalcost. Comparelearnedtoitsownuniformvariant.",
+  "resources": {
+    "local_gpu0": "complex_bounded seed2026110207",
+    "local_gpu1": "complex_unbounded seed2026110207",
+    "remote_gpu0": "uniformcontrols thencomplex_bounded seed2026110208",
+    "remaining": "complex_unbounded seed2026110208 onreleasedlocalGPU"
+  },
+  "evidence_scope": "Development pilot only. Prior LFP/NCM scores remain observed and untouched. A result here cannot establish new-material generalization or CVPR contribution by itself.",
+  "decisions": "Evaluate full pairedseed/condition results before scaling; distinguish geometry-bound benefit from learned-direction benefit and include unfavourable conditions. No optional optimizer/model grid in this pilot.",
+  "execution_freeze_required": true
+}

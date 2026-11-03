@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-11-01T16:34:51.437191+00:00",
+  "status": "frozen_before_5000_epoch_execution",
+  "question": "Compute a common, calibrated-probe iterative baseline from allowed measurements, independently of learned-model rank selection.",
+  "dependency_decision": "Advances only standard visible-only baseline fitting while M3 completes. No learned-model training, family selection, query-target scoring, or official InverseBench access. This prospective baseline contract extends prior input-only preparation without changing its measurements or partitions.",
+  "scans": [
+    "IC1",
+    "TP1",
+    "NCM",
+    "LFP",
+    "TP2",
+    "IC2",
+    "FLY1",
+    "W"
+  ],
+  "fractions": [
+    0.1,
+    0.25,
+    0.5
+  ],
+  "seed": 20261229,
+  "epochs": 5000,
+  "batch_size": 32,
+  "dtype": "float64",
+  "chunk_epochs": 25,
+  "checkpoints": [
+    1000,
+    3000,
+    5000
+  ],
+  "task_order": "Smallest visible task first per prospective queue; eventual grid remains all eight scans x three budgets.",
+  "source_commit": "153ea64217b14fcc3f18e16445ba9f1c5bff4044",
+  "source_paper": "https://arxiv.org/abs/2510.20929v1",
+  "method": "Pinned native LSQML, object-only; amplitude-Gaussian objective, default random minibatch sampling, fixed probe/positions/OPR. No new optimizer or tuned loss.",
+  "initialization": "Fresh constant from permitted fluence, same seed and batches. This is not a restart with missing optimizer state.",
+  "calibration": "Supplied full-scan estimated probe and reconstructed canvas shape. Conditional calibration-assisted measurement prediction, not independent probe recovery or independent material-property validation.",
+  "data": "Original detector values retained without rounding. Coordinates use already-confirmed parity offsets. LCLS excluded prospectively because its physical patch origin remains unconfirmed.",
+  "outputs": "Complex128 object and float32 raw-unit queries at1000/3000/5000; visible traces and metadata only, no query scores.",
+  "primary": "Fixed epoch5000; 1000/3000 diagnose visible convergence only.",
+  "future_strengthening": "Preserve all versions; select neither iteration count nor model by test query errors.",
+  "resources": "New v2 may run on local cuda1 while GPU0 has an unrelated process; remote may execute unclaimed tasks after v1 completes. One task-directory claim per task. No interference with unrelated jobs.",
+  "timing": "Concurrent task resource accounting, not an isolated algorithm speed benchmark.",
+  "failures": "Stop new launches on a task failure, allow other active task to finish, preserve partial files and logs; inspect before any recovery.",
+  "code_hashes": {
+    "src/ptychi_baseline_adapter.py": "3d74799e490641707f827e1d9829b2f8743808cea1932b257651db7e63a7f957",
+    "src/visible_ptycho_measurements.py": "dc127c61e3359babe81bc67a63bd46af022f1edb5b426d7fcadeefab818720da",
+    "src/ptycho_measurement_interface.py": "20a54f0306d4b5f10368556824c98315a4cb9b7059070f9404764b8bf6a000f8",
+    "src/born_scattering.py": "c2da694014e3259c5c0db7827ce86e398aa9b64e65ac3aa6491d242212e36f38",
+    "scripts/run_visible_lsqml_5000.py": "797725d28cef305e728de17da715983446c5cc51f702d4b45eb70eebf38a1ab1"
+  },
+  "input_hashes": {
+    "data/multibeamline_measurements_v1/manifest.json": "89a403dba9d87db54288e26129a32567932c44b3a7b4d6ab10107704a00e2459",
+    "data/multibeamline_measurements_v1/IC1/manifest.json": "1a5ece6ccc4f119eaf8cae81d6f5dafc5e0ee6b3ec76b36e5047c05206b71a3b",
+    "data/multibeamline_measurements_v1/TP1/manifest.json": "d30ea0f97c74f2a5191c141fedbc02279015916c08b9bea4aa5b0d961683fea1",
+    "data/multibeamline_measurements_v1/NCM/manifest.json": "a2519d094385b28f5a9b0e8033e81f57f03ca03d284f7ee6e287e370ccd51dcc",
+    "data/multibeamline_measurements_v1/LFP/manifest.json": "13500e406618349495b928f43fde1dcc7f22c02375219beff125add4ada633b4",
+    "data/multibeamline_measurements_v1/TP2/manifest.json": "49595c260f53e5110c25443c3f03a26ba203374aef79e68cc81594ee0e7449ee",
+    "data/multibeamline_measurements_v1/IC2/manifest.json": "acc11220d0ef54c4fe5cae50fb689294a999935a8150b69ee4eac4d7ca54501b",
+    "data/multibeamline_measurements_v1/FLY1/manifest.json": "8ff0d979b3a3ddfe5d3deb660945076442bcbf25267b4c90f5e15bfa8a08d251",
+    "data/multibeamline_measurements_v1/W/manifest.json": "cd2a0a9ffd42f746e7330a6f4c424be0567c5a14f8ca90275d391e6d8dfbd1b0",
+    "data/multibeamline_visible_geometry_v1/IC1.npz": "75ddd5bdbd70d4a36dc184df97f9f2a6eccb518475f4f63a13def8aa3d97fc16",
+    "data/multibeamline_visible_geometry_v1/TP1.npz": "72da4e61938dfd04b4762803ee38db916c8d92ca677fe4c39ef3603de3003bd1",
+    "data/multibeamline_visible_geometry_v1/NCM.npz": "77a9b413792e93ead9662fc34351759b4dbe70ec024157cc02b3d6423f988708",
+    "data/multibeamline_visible_geometry_v1/LFP.npz": "e621c88bb61f24376ee5cfce63633c8e16f23af1f2a7ee2c010aa63732471844",
+    "data/multibeamline_visible_geometry_v1/TP2.npz": "622bd79f62741f0244c9978d5b894e7658f2f372d283088ead3186a394001963",
+    "data/multibeamline_visible_geometry_v1/IC2.npz": "8db0a5c643437040b246b0b2098f6015f230f2f62549ff1cb6c84f9d11b710c9",
+    "data/multibeamline_visible_geometry_v1/FLY1.npz": "95c82a92f528862805ed377fca7970aface4468aa375c8787faa1fae29b21fdb",
+    "data/multibeamline_visible_geometry_v1/W.npz": "5387686882a82daa32fee9794c8c1b3ad30831c6146c4c37a7b8308d43aa1dd2"
+  },
+  "reason": "Visible-only 300-to-1000 loss reductions persist for several scans; see audit/m4_learning_design_20261101/visible_convergence_at_design.json. Source references used5000 epochs."
+}

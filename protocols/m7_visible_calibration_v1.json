@@ -1,0 +1,32 @@
+{
+  "status": "fixed_before_inference",
+  "cohorts": [
+    "official",
+    "morphology"
+  ],
+  "noise_seeds": [
+    20270111,
+    20270112,
+    20270113
+  ],
+  "budgets": [
+    0,
+    2,
+    5,
+    10
+  ],
+  "rule": "gamma=max(0, sum((s-p)*h/scale^2)/sum(h^2/scale^2)); no regularization, no fitted hyperparameters. Five observed angular powers, unbiased noise subtraction 1e-8. Fixed training response scales at wavelength 6. Same rule for response and NPPC factors. Image-only receives its matched positive intensity gain.",
+  "evaluation_status": "Follow-up on existing test cohorts; no new holdout claim. This operator-only adaptation rule is fixed before its predictions are scored.",
+  "checkpoint_hashes": {
+    "runs/m2_random_current_20261101/random_current_seed20261126/best.pt": "188548283adfaddce46d4df4ee8a200cd71ebb2fc3b6b17867d743c3a9d226d5",
+    "runs/m2_random_current_20261101/random_current_seed20261127/best.pt": "8d4e98c9dad58fc057a5038116ffb376ffccb31b8786462a09ac7d3411175d9d",
+    "runs/m2_random_current_20261101/random_current_seed20261128/best.pt": "141146f6688721eda43d3ffb23bc71a33d75c92631ddfd1bc2b4127fa99db755",
+    "runs/m2_nppc_20261101/sample_seed20261120/best.pt": "a5fc2bfdff65995e026a049f12d49bb50da415524d0b27a63bb758d5a7b7c5e7",
+    "runs/m2_nppc_20261101/sample_seed20261121/best.pt": "22e1c3a0bc677b78c6764b74a27624821f443b01b2265756552b06099d4eda9a",
+    "runs/m2_nppc_20261101/sample_seed20261122/best.pt": "8c964e852ead15828ebd455a234c3646fa78681daa119c6b69f5b950206084b6",
+    "runs/m2_nppc_20261101/fixed_seed20261120/best.pt": "6873117f79b2d6de9eff3cfd6ae72096a40d5183114f1feb888a4e8199dbc406",
+    "runs/m2_nppc_20261101/fixed_seed20261121/best.pt": "a7129aa002c48c8194b945c13ef8cfe8a20ed71fadbb3846829ea601d717c7a5",
+    "runs/m2_nppc_20261101/fixed_seed20261122/best.pt": "842572f93f093d23522f330fed4edc8d01b0f89e33ffe62501b8296a697583ed"
+  },
+  "script_sha256": "76e1a76a8fd0ecddb97332e9f7446495558813d1e97565187e4f414e60c85a84"
+}

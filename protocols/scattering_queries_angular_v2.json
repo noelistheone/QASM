@@ -1,0 +1,51 @@
+{
+  "schema_version": 2,
+  "name": "angularly_resolved_scattered_field_power",
+  "stage": "development contract; official test remains unopened",
+  "motivation": "Frozen v1 broad receiver sectors concentrate 95.9–98.8 percent of power in 0–10 degree transmitter–receiver differences. Retain v1 in full and resolve all five angular bands, not just a favorable band.",
+  "selection_basis": "physical angular resolution and a Ridge-only development sensitivity diagnosis; no DAPS/TV angular result was used to choose bands",
+  "wave_pixels": [
+    4,
+    6,
+    8
+  ],
+  "num_transmitters": 20,
+  "num_receivers": 60,
+  "rig_angle_convention": "linspace(0,359,n) degrees, pinned InverseBench convention",
+  "angular_bands_degrees": [
+    [
+      0,
+      10
+    ],
+    [
+      10,
+      30
+    ],
+    [
+      30,
+      60
+    ],
+    [
+      60,
+      90
+    ],
+    [
+      90,
+      180
+    ]
+  ],
+  "last_band_includes_upper_endpoint": true,
+  "query": "q_(wave,band)=mean over transmitter/receiver pairs in band of |B_wave f|^2",
+  "angle": "abs(wrap_to_[-180,180)(transmitter_rig_angle-receiver_rig_angle))",
+  "units": "normalized field amplitude squared, not calibrated watts or a cross section",
+  "contrast": "same nondispersive real contrast f at all wavelengths; synthetic Born response",
+  "metrics": [
+    "per-band and per-wavelength absolute log10 error",
+    "per-band mean absolute relative error",
+    "noise-subtracted measurement-only control for wave=6"
+  ],
+  "noise_control": "For complex noise with E|epsilon|^2=sigma^2, mean(|y|^2)-sigma^2 is unbiased for each observed band; negative values remain recorded and are not silently clipped for signed errors",
+  "reporting": "all 15 queries per object; wave=6 is a measured-response control; waves4/8 are unmeasured responses; report near-forward and other bands separately without replacing the full table",
+  "uncertainty": "Finite DAPS draw intervals are descriptive unless separately calibrated; empirical response mean and response of image mean are separate readouts",
+  "comparison_unit": "object, not pixel, band or posterior draw"
+}

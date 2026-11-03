@@ -1,0 +1,20 @@
+{
+  "status": "prospective_development_extension",
+  "created_utc": "2026-11-02T01:44:44.509112+00:00",
+  "rationale": "All four pilot fits improved all6 TP conditions,7.74–8.02percent versus matched uniform; all selected final1000step and curves still decreasing. Extend allfour equally before any new material evaluation.",
+  "parent_protocol": "protocols/m4_query_aware_pilot_v1.json",
+  "total_steps": 3000,
+  "validation_interval": 100,
+  "changed_hyperparameters": [],
+  "resume": "Continue from step1000 with original network, optimizer, AdamW moments, numpy generator and Torch CPU/CUDA RNG. Keep1e-3LR,weightdecay1e-5,3internalsteps andradius0.1.",
+  "selection": "Earliest lowest TP mean over original0:100:1000 plus new1100:100:3000. Preserveall124checkpoints and744conditionrows; bothseeds/variants retained.",
+  "unknown_materials": "Do not loadFLY/LFP/NCMquerylabels. Existingtestcohortsarealreadyobservedfromv1,notfreshblind.",
+  "branches": "Same strictIFT/cap certificates; a failure is recorded, not silently truncated or switched. Boundary-countzero isnotproofthatcapdoesnotexcludea distantquarticminimum.",
+  "resources": {
+    "local_gpu0": "bounded seed2026110207 after endpointreplay",
+    "local_gpu1": "unbounded seed2026110207",
+    "remote_gpu0": "bounded seed2026110208",
+    "next_free_local": "unbounded seed2026110208"
+  },
+  "required_next": "Completeall4thenreviewmatchedsameweights/gainsandcosts beforeprotocolforcrosssourceevaluation."
+}

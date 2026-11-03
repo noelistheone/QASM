@@ -1,0 +1,21 @@
+{
+  "status": "frozen_before_training",
+  "created_utc": "2026-11-02T01:32:57.443094+00:00",
+  "code_hashes": {
+    "src/query_response_trust.py": "cc5ebff7bf0007de820dc19270046b8e699edeeaa300b839054eeb1496e4ec1f",
+    "src/query_aware_refinement.py": "0077835c6d937e63bfe24cbeeb1af67994d765efd4e238585eaa51129dbec3e9",
+    "scripts/run_query_aware_pilot.py": "d329ac3cae5a06672a2c18fb06f145600df2b98b7abf40840cf3b08c08fa9645",
+    "scripts/check_query_aware_refinement.py": "9c0f0d70823f164c7763effb30449aff9153e563ed215a58f524dc21300aeacf",
+    "scripts/check_query_response_trust.py": "4c0aa1f936546d31fd3d61e6599f48ed46f40f84ed82c6612d337beff63bd825"
+  },
+  "input_hashes": {
+    "protocols/m4_query_aware_pilot_v1.json": "6020a55d076b608d7c79fcb3456d356e67093001344854b28ff4d67a10a19984",
+    "protocols/m4_internal_update_execution_v1.json": "792a71c1d77493e9611b29a61a8c85e30d2da2b5ec198b72bf89eca5e22b3ef2"
+  },
+  "input_dependencies": "All157 original internal-pilot input hashes and13 source hashes additionally verified by verify_execution at process startup.",
+  "checks": {
+    "audit/m4_query_aware_checks_20261102/checks.json": "26934c12ea2991983063b920e0d8b0f8764d25290af481c2e37c168f30f1c167",
+    "audit/m4_query_trust_checks_20261102/checks.json": "4aacc9ba0a90a93df42d32efa1c437d008ea7ff9ac692b912e855a82066cd87f",
+    "audit/m4_query_aware_profile_20261102/profile.json": "4c55729da6b6695abe0601c7a453f0d5ab86d8f24be45898495cdee349066f99"
+  }
+}

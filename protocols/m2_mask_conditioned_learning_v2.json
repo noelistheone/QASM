@@ -1,0 +1,9 @@
+{
+  "schema_version": 2,
+  "supersedes_before_full_training": "m2_mask_conditioned_learning_v1.json",
+  "reason": "One-step numerical profile of full-rig inverse applied after sparse zero-filling had normalized imageMSE43.65 and queryMSE898467.6. Preserve that failed profile; do not launch full training on the unstable feature.",
+  "changed_feature_only": "30 fixed float32 conjugate-gradient steps on the actual masked normal equation (A^T D_mask A + lambda I)f=A^T D_mask y, lambda=1e-5||A_full||^2. No density compensation and no exact-convergence claim; log normal residuals.",
+  "all_other_design": "Same split, masks, model, seeds, losses, 4000steps/batch128, validation and evaluation asv1",
+  "base_protocol": "m2_mask_conditioned_learning_v1.json",
+  "official_test_opened": false
+}

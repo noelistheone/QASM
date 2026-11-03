@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "purpose": "Learn a mask-conditioned structure predictor on the actual nested action rig, then support a separately trained posterior-moment/NPPC comparison. No independent novelty from FiLM or a response loss.",
+  "action_contract": "m2_acquisition_actions_v1.json",
+  "data_split": "original train8000: first4000 mean-predictor training, last4000 reserved for subsequent residual/covariance training; original1000validation and1000internalassessment unchanged",
+  "feature": "Full180-receiver Tikhonov map T with lambda=1e-5||A_full||^2, computed once; density-compensated masked adjoint feature f0=(30/n_selected_blocks)*y_mask@T. This is NOT an exact subset Tikhonov inverse.",
+  "mask": "always include initial[0,6,12,18,24]; sample number of extra blocks uniformly0..10, then choose without replacement from25 remaining blocks; mask is explicitly supplied to network",
+  "training_noise": "fresh independent circular complex Gaussian sigma1e-4 on each train exposure, instead of memorizing one noise draw",
+  "evaluation_noise": "the same already frozen full-rig measurements for every model and policy",
+  "network": "four-level width32 residual U-Net, identity-initialized FiLM at encoder blocks conditioned on30mask bits plus fraction; output residual added to observation-only feature",
+  "losses": {
+    "image": "imageMSE / mean-training pixel variance",
+    "joint": "same image loss plus normalized all15 physical queryMSE"
+  },
+  "training": {
+    "steps": 4000,
+    "batch": 128,
+    "seeds": [
+      20261117,
+      20261118,
+      20261119
+    ],
+    "lr": "AdamW1e-3 cosine to1e-5; weight_decay1e-4;clip10",
+    "selection": "every400steps on first256validation objects at extra budgets0,2,5,10; imageMSE selects image, combined loss selects joint"
+  },
+  "evaluation": "fixed per-object random nested order seed20261116+object_id; full1000internal objects at budgets0,2,5,10 after selection; these are development results, not official test",
+  "posterior_followup": "Freeze image mean predictor before learning residual covariance on reserved4000 objects. NPPC plus physical readout is an explicit required control; covariance calibration and acquisition benefit are not assumed.",
+  "official_test_opened": false
+}

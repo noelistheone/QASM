@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "status": "Frozen before head-rate control fitting; motivated by original-query validation curves of completed multiplicative26 and active additive26",
+  "question": "Does a faster scalar readout optimizer remove the apparent advantage of the physical readout at the same4000update budget?",
+  "motivation": "Directmultiplicative26 original-query validation loss decreases from0.014896at400 to0.011096at4000 and selects the last checkpoint. A common1e-4 learningrate doesnot establish equally converged heads. New-query results alreadyexamined; this is a transparently motivated development control, not preregistered blind evidence.",
+  "models": [
+    "multiplicative",
+    "additive"
+  ],
+  "seeds": [
+    20261126,
+    20261127,
+    20261128
+  ],
+  "optimizer": "Backbone spatial UNet Adam1e-4; scalar query head and pooled-feature LayerNorm Adam1e-3; same betas, clipping10,4000steps,batch128. Compare prior all-1e-4 models. No change to architecture, inputs, splits or physical query labels.",
+  "selection": "Within each readout/seed choose checkpoint by original15query validation normalizedMSE over0/2/5/9blocks only. Compare thetwo head rates usingthe same original-query validationcriterion. Report both rates and validationselected baseline, not target-query-selected oracle.",
+  "evaluation": "Same1000developmentobjects,0/2/5/9/10blocks,original15andnew20. Allqueriedoutcomes retained. NoextraNPPCtraining ornewlabels.",
+  "resource_dependency": "Remote26 may run alongsideinitial additive26 aftermultiplicative26 ends; local27/28 wait forinitial additiveCNNqueuecompletion andadequate memory. Noactive trainer source edits.",
+  "scope": "One targeted optimizercontrol; no broader architecture or hyperparameter sweep from assessment results.",
+  "official_test_opened": false
+}

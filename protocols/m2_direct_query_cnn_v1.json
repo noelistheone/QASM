@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "status": "Frozen before any CNN direct-query fit",
+  "question": "Does the spatial CNN itself, followed by a shared wavelength-conditioned scalar head, explain the transfer benefit attributed to physical moment readout?",
+  "backbone": "Same randomly initialized MaskPosteriorComponents raw UNet as random_current, same two input images and mask FiLM. Raw eight maps pooled to4x4, followed by128-feature LayerNorm; no Gram-Schmidt or covariance interpretation.",
+  "head": "Concatenate128spatialfeatures,66training-standardized mean/CG/measuredpower/mask features, and7query features(log wavelength/6, fiveangular indicators, standardized logq_mean). Shared201-128-128-1 GELU head; q=q_mean*exp(head); lastweights/biaszero.",
+  "training": "Same4000covarianceobjects,4000steps,batch128,freshnoise andrandom0..9extra blocks,Adam1e-4,clip10. Seeds20261126/27/28. Draw unused futureaction exactlyasrandom_current toretain mask sampler RNG sequence. Original15labels only.",
+  "selection": "Original15normalizedMSE onfirst256validationobjects at0/2/5/9 every400steps; no newquery selection",
+  "evaluation": "All1000developmentobjects at0/2/5/9/10; original15 andnew20. Newquerylabels loadedaftercheckpointselection. NoGaussianconditioning orvariance-drivenaction claim fordirecthead.",
+  "normalization": "First66columns andlogquery statistics computed fromexisting16000cachedtrainingstates only. This adds no distincttrainingobjects orlabels.",
+  "compute": "Same freshstates/steps asrandom_current; extraheadparameters reported, actualruntime andmemory reported; losses have differentphysicalprojection costs.",
+  "official_test_opened": false
+}

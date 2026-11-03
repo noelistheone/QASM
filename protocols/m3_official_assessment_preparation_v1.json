@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "status": "preparation_only; official images not downloaded or opened",
+  "reason": "The current1000 assessment images are an extensively used internal development split of the public10000 training images. An independent final evaluation is required before making the synthetic generalization claim.",
+  "source": {
+    "paper": "https://arxiv.org/html/2503.11043v1#S4.SS1",
+    "record": "https://data.caltech.edu/records/zg89b-mpv16",
+    "archive": "inv-scatter-test.zip",
+    "url": "https://data.caltech.edu/api/records/zg89b-mpv16/files/inv-scatter-test.zip/content",
+    "expected_bytes": 839942,
+    "expected_md5": "72656596d609d305562cd79a09a841cf",
+    "expected_objects": 100,
+    "source_statement": "The paper reports100 held-out simulated permittivity images and curates their cosine similarities to the training data below0.6. This criterion has not been independently recomputed here.",
+    "evidence_level": "Synthetic objects from the benchmark simulator, not real optical measurements"
+  },
+  "opening_gate": "Complete and retain all M3 rank/noise/mask analyses and isolated cost. Then freeze a final execution protocol, all model/checkpoint/code hashes, object handling, metrics and comparison set before acquiring the archive. This preparation file itself is not permission to skip that gate.",
+  "models_to_retain": {
+    "primary": "M2 random-current rank8, all three frozen seeds; inherited from the already-frozen M3 robustness protocol, not selected from official labels",
+    "rank_controls": "M3 moment ranks1/2/4/8 and coherent rank1, all three seeds each",
+    "direct_controls": "All four completed additive/multiplicative and original/headrate configurations, each with three seeds. Identify the original-query validation winner already fixed in the M2 gate.",
+    "other_controls": "Three joint image/task models, the frozen mean, the stronger budget-specific Ridge35 and pooled Ridge35, using their existing additive wavelength extensions",
+    "selection": "No model, rank, query, object, seed or clipping rule is selected from the official result. Model changes after opening create development follow-ups and cannot reuse this cohort as fresh blind evidence."
+  },
+  "observations": {
+    "operator": "Unchanged BornConfig wave6,numRec180,numTrans20,128x128 and existing coordinate convention",
+    "noise_complex_std": [
+      5e-05,
+      0.0001,
+      0.0002
+    ],
+    "noise_seeds": [
+      20270111,
+      20270112,
+      20270113
+    ],
+    "noise": "Independent real/imag standard deviation complex_std/sqrt(2), keyed by new namespace and official object ID; same standardized draw across noise scales, masks and models",
+    "initial_receiver_blocks": [
+      0,
+      6,
+      12,
+      18,
+      24
+    ],
+    "additional_budgets": [
+      0,
+      2,
+      5,
+      10
+    ],
+    "mask_orders": [
+      0,
+      1
+    ],
+    "missing_channels": "Inference receives explicit masks and zero-filled missing field channels. Missing-channel values cannot affect features or readouts.",
+    "frozen_preprocessing": "Existing CG30 regularization, frozen image checkpoint and observed-power subtraction1e-8 remain unchanged at every noise level"
+  },
+  "queries": {
+    "original_waves": [
+      4,
+      6,
+      8
+    ],
+    "interpolation_waves": [
+      5,
+      7
+    ],
+    "extrapolation_waves": [
+      10,
+      12
+    ],
+    "bands": "The same five angular bands and numRec60 definition per wave; no query coefficients fitted to official responses",
+    "primary": "Combined20 untrained-query relative MAE at nominal noise and maskorder0, reporting all four budgets",
+    "secondary": "Original15, interpolation10, extrapolation10, per-query raw MSE and relative RMSE, every declared noise/mask condition and nonpositive predictions"
+  },
+  "inference_and_scoring_separation": "A preparation process alone reads synthetic object truth to generate observations and an isolated scoring file. Prediction functions accept measurements, masks and frozen artifacts only. Every predictor output is saved before reference responses are loaded by its scorer.",
+  "uncertainty": "Average errors, not predictions, across all declared trained seeds and three noise draws for each object. Paired2000 bootstrap resamples100 object identities. Give retraining-seed spread separately; repeated noise and masks are not independent objects. Intervals are conditional, pointwise and not multiplicity-corrected.",
+  "retention": "All100 objects remain in the denominator. Nonfinite values or incompatible records cause a documented failure, never silent dropping. Save complete predictions and every unfavorable contrast.",
+  "official_test_opened": false,
+  "official_test_downloaded": false
+}

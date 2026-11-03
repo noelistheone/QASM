@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "stage": "M2 development pilot; no claim of an independent new vision method",
+  "question": "Does learning structure with a physical-response loss improve unmeasured responses beyond image-only learning and direct response regression?",
+  "data": {
+    "source": "InverseBench public inv-scatter-train LMDB, 10000 physical contrast images",
+    "split_seed": 20261103,
+    "split_rule": "NumPy default_rng(seed).permutation(10000): first8000 training, next1000 validation, last1000 internal assessment",
+    "official_validation": "10 previously inspected development objects; separate external-to-this-training diagnostic only",
+    "official_test": "not downloaded or opened",
+    "pretrained_prior_overlap": "Public DAPS prior was trained on all10000 images. Internal assessment is unseen by these new networks, but is NOT independent of that pretrained prior; do not use it for a fair DAPS generalization claim."
+  },
+  "observation": {
+    "operator": "BornConfig(wave=6,numRec=60,numTrans=20), pinned source convention",
+    "noise": "circular complex Gaussian sigma=1e-4; real/imag std=sigma/sqrt(2)",
+    "noise_seed": 20261104,
+    "feature": "linear Tikhonov image f0=A^T(AA^T+lambda I)^-1 y, lambda=1e-5 ||A||^2; float64 Cholesky, float32 cached map",
+    "feature_parameter_basis": "Fixed before this learning pilot from the previously completed M1 public-development Ridge grid; not chosen on the new internal assessment",
+    "test_time_inputs": "noisily observed field and known operator only"
+  },
+  "query_protocol": "scattering_queries_angular_v2.json",
+  "queries": "all15 (wave4/6/8 x5 contiguous angular bands); raw physical predictions, no image clipping in forward",
+  "models": [
+    {
+      "name": "image",
+      "loss": "mean image squared error divided by training pixel variance",
+      "readout": "q(UNet(f0))"
+    },
+    {
+      "name": "direct",
+      "loss": "mean((direct_q-q_true)/training_query_RMS)^2",
+      "readout": "positive15-dimensional head on decoded spatial features; no physical response operator in its loss"
+    },
+    {
+      "name": "joint",
+      "loss": "image loss + mean((q(UNet(f0))-q_true)/training_query_RMS)^2",
+      "readout": "same exact differentiable physical query as image model"
+    }
+  ],
+  "training": {
+    "seed": 20261105,
+    "steps": 2000,
+    "batch_size": 128,
+    "optimizer": "AdamW, lr1e-3 cosine to1e-5, weight_decay1e-4",
+    "selection": "validation only every200steps; image uses imageMSE, direct uses responseMSE, joint uses combined training objective; retain last and best checkpoints",
+    "precision": "float32, TF32 disabled; no mixed precision in physical field power"
+  },
+  "report": [
+    "all15query errors and object-level means",
+    "image PSNR/SSIM for image and joint",
+    "measurement residual",
+    "fixed originalRidge feature control",
+    "all validation curves",
+    "parameter counts/runtime/peak memory",
+    "full1000 internal assessment after checkpoint selection"
+  ],
+  "interpretation": "This is a controlled learning baseline and mechanism experiment. Adding a response loss or direct head alone is not claimed as novelty. Adaptive acquisition, calibration, unseen query transfer and real-data validation remain later experiments."
+}

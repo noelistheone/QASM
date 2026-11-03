@@ -1,0 +1,25 @@
+{
+  "status": "frozen_before_extension",
+  "created_utc": "2026-11-02T01:44:44.509112+00:00",
+  "code_hashes": {
+    "scripts/continue_query_aware_training.py": "9de93434a930ced4969cfdfee1e241e977ed5dad4fb665e7f5b981f7d12266bf"
+  },
+  "input_hashes": {
+    "protocols/m4_query_aware_extension_v1.json": "4217502cbbbf750425d25a467d48a94ef9b68d9b7ba4fc145173fd3de2d24ac5",
+    "protocols/m4_query_aware_execution_v1.json": "94ae174635208bd8f3064ec6f1865c529ac2339c5a9d506a3a7f1389c992c9c1",
+    "analysis/m4_query_aware_pilot_v1/report.json": "ff18fc1a146924e4f63ac65ea9b5f5dbd0f62695ec0d6d75693fd35d3a227e55",
+    "runs/m4_query_aware_pilot_v1/complex_bounded_2026110207/step1000.pt": "6cba038dd781680a63dd2c0197c991a4ec0915192ab8100fb1adc89695c8b5b5",
+    "runs/m4_query_aware_pilot_v1/complex_bounded_2026110207/validation_curve.json": "07eb4879970c4fa30d1e5538a22e4e5d6998bba7bce264958fe158fda9704ac2",
+    "runs/m4_query_aware_pilot_v1/complex_bounded_2026110207/summary.json": "cab182861f4b02402c6bf0b206804501a72de35c8f6a60abcb432c0b82b4a7e7",
+    "runs/m4_query_aware_pilot_v1/complex_bounded_2026110208/step1000.pt": "2c2647482e2614d796b75542a1825a3cabcbb00769e186c6d5808d713b60c6b8",
+    "runs/m4_query_aware_pilot_v1/complex_bounded_2026110208/validation_curve.json": "b34c215c2f987cf9731a7d88d30cc44d62a16b19e0d1985fcb2e7fb52f8bc81d",
+    "runs/m4_query_aware_pilot_v1/complex_bounded_2026110208/summary.json": "9e5d651cf842eb9ebb3ef50b2fad13f1a85b7999474c2817e2e06f649d082a9e",
+    "runs/m4_query_aware_pilot_v1/complex_unbounded_2026110207/step1000.pt": "5bcd7f1f7afc35f09c6db79bfb693e418e99deb9fa23c38e5fa4193d8f66ac05",
+    "runs/m4_query_aware_pilot_v1/complex_unbounded_2026110207/validation_curve.json": "00d5a9e70a15512e2afdb607cd4e47576b5093d501b18d30009be8af831e8447",
+    "runs/m4_query_aware_pilot_v1/complex_unbounded_2026110207/summary.json": "657f37174fe7452bb58e1358ac0b33137c44f5e33a6aa8b7e2cece7713c6315e",
+    "runs/m4_query_aware_pilot_v1/complex_unbounded_2026110208/step1000.pt": "989b482a1f2ce65305a1211c619f20836b1c1bda3d404756c8e0431fa7c1f9d9",
+    "runs/m4_query_aware_pilot_v1/complex_unbounded_2026110208/validation_curve.json": "bfb7b875410e36e376668daa1a1a57ee3d32dc814047e517794b2f7cc0009118",
+    "runs/m4_query_aware_pilot_v1/complex_unbounded_2026110208/summary.json": "fb3ba013f3105f561f829a99e097864e9ea2060168001ab6e38dd6e32a109030"
+  },
+  "parent_verification": "verify_new additionally verifies originalcode/inputfreezes atstartup."
+}

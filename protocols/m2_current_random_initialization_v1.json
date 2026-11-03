@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "status": "Frozen before random-initialized current-query training",
+  "question": "Is image-residual NPPC pretraining necessary for the response-transfer signal, or can the same rank8 spatial model learn directly from original query supervision?",
+  "mean": "Same frozen image_seed20261117; no mean changes",
+  "initialization": "Random MaskPosteriorComponents(8), seeded before construction; exact initial state saved and hashed",
+  "training": "Same current-query objective, Adam1e-4,4000steps,batch128,seeds20261126/27/28, randomextra0..9 masks/freshknownnoise and oneunusedfutureaction for same RNG scheduling",
+  "comparison": "Existing NPPC4000+current4000 versus random+current4000. This measures pretraining dependence and totalcost, not equal totaloptimizationbudget.",
+  "selection": "Identical originalquery validation objective onfirst256objects,budgets0/2/5/9,every400steps",
+  "evaluation": "Same1000developmentobjects, original current0/2/5/10 andone-step0/2/5/9; unchanged new20 querypost-evaluation andfixed20objectactionpilot",
+  "hardware": "Seed26 remote4090; seeds27/28 local3090s after existing queues finish, matching their current/future training hosts",
+  "interpretation": "Current-query fitting yields a positive quadratic-response representation; neither pretraining nor PSD proves covariance calibration",
+  "official_test_opened": false
+}

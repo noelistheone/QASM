@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "status": "Prepared before M2 readout gate closure; execution requires explicit gate decision",
+  "question": "Do several learned spatial response factors improve untrained physical queries beyond a single auxiliary spatial field?",
+  "ranks": [
+    1,
+    2,
+    4,
+    8
+  ],
+  "matched_point_control": "One additional rank1 coherent readout per seed: q(mean+delta), including the interference cross term. Same backbone, head prefix, frozen mean, fresh observations, four-thousand label objects, optimizer and selection. No image loss or nonnegativity clipping. This tests whether another learned point-image correction explains the benefit without a multi-field moment representation.",
+  "seeds": [
+    20261126,
+    20261127,
+    20261128
+  ],
+  "training_objects": "Existing 4000 covariance_train objects; common frozen image mean was trained on separate 4000 mean_train objects",
+  "validation": "Existing first256 validation objects, budgets0/2/5/9, mean original15-query normalizedMSE every400steps",
+  "assessment": "Existing1000 internal development objects; budgets0/2/5/9/10; original15 andnew20 queries, no new-query selection",
+  "steps": 4000,
+  "batch": 128,
+  "optimizer": "Adam lr1e-4, betas(.9,.999), gradientnormclip10",
+  "initialization": "For each seed, initialize one CPU rank8 model. All ranks share every trunk parameter and the first rank output-head channels. Save tensor-content hashes and initial states.",
+  "stochastic_inputs": "Independent NumPy generator for object/mask sampling and independent NumPy float32 noise generator SeedSequence([seed,20261201]). Consume the same unused one-action draw as M2 to retain the mask-sampler convention. Noise arrays are identical across ranks at each update, independent of architecture and GPU. Record initial input hashes and resume states.",
+  "loss": "Current-query loss only: q(mean)+sum_k q(L_k), factors use full-derivative modified Gram-Schmidt. Compute only the diagonal contraction; CPU audit compares values and factor gradients with the frozen M2 formula on actual operators.",
+  "reporting": "All four ranks and all three seeds, their parameter counts, rank-dependent projection counts, losses, train/inference cost and seed dispersion. Do not select rank on assessment queries.",
+  "gate": "audit/m2_readout_gate_20261101/decision.json must have status=completed and next_action=run_m3_prediction_robustness before a formal fit",
+  "official_test_opened": false,
+  "training_budgets": "Current-query training draws extra uniformly from integers0..9 (NumPy upper10 excluded), matching M2; evaluation includes10 as one additional budget. The unused next-action draw remains consumed only for sampler parity.",
+  "additional_metrics": "Retain declared relative MAE as primary. Record raw per-query MSE and per-query relative RMSE; fixed-scale squared training loss targets conditional means whereas relative absolute loss targets a weighted median. New-query labels never select weights/checkpoints/configuration."
+}

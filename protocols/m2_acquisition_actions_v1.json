@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "status": "fixed prospective action contract; not yet executed",
+  "rig": "BornConfig(wave=6,numRec=180,numTrans=20); receiver angles linspace(0,359,180)",
+  "actions": "30 disjoint blocks of6 consecutive receiver indices; actiona contains [6a,...,6a+5], all20 transmitters, complex field",
+  "cost_per_action": "120 complex measurements, equal cost; no repeated measurements in this initial contract",
+  "initial_actions": [
+    0,
+    6,
+    12,
+    18,
+    24
+  ],
+  "additional_action_budgets": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    10
+  ],
+  "noise": "one fixed independent circular complex noise draw per object and full-rig channel; every policy sees the same realization when it chooses the same action",
+  "queries": "all15 angular responses in scattering_queries_angular_v2.json, jointly and query-conditioned comparisons",
+  "candidate_policies": [
+    "uniform spacing",
+    "random with matched seeds",
+    "image covariance/AdaSense",
+    "first-order task sensitivity",
+    "second-order Gaussian task utility",
+    "same inference model with task reward only",
+    "learned task-conditioned policy if supported by pilot"
+  ],
+  "no_test_oracle": "Actions use acquired observations only; oracle actions may appear only as an explicitly separate nondeployable bound",
+  "budget_caveat": "These nested action rigs differ from the original separately spaced60/180/360 receiver rigs. Do not transplant original baseline scores as matched-action scores.",
+  "instrument_caveat": "Controlled simulation has known geometry; unknown calibration and real scan actions need their own subsequent contract."
+}

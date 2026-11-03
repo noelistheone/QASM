@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "status": "Frozen before generating new query labels",
+  "purpose": "Evaluate whether a learned structural representation transfers physical readout to untrained wavelengths without a new response head",
+  "fit_queries": "Existing wave4/6/8 andfive angular bands; unchanged",
+  "transfer_queries": "BornConfig wave5/7/10/12,60receivers,20transmitters; samefive angular bands [0,10),[10,30),[30,60),[60,90),[90,180]degrees",
+  "groups": {
+    "interpolation": [
+      5,
+      7
+    ],
+    "extrapolation": [
+      10,
+      12
+    ]
+  },
+  "observations": "Existing wave6 nested30-block instrument andfrozen noise; no extra measurements supplied",
+  "training": "New labels never enter neural fitting, loss scaling, hyperparameter selection orcheckpoint selection for the currently frozen controls/candidates",
+  "assessment": "All1000developmentassessment objects atbudgets0/2/5/10; allqueries reported; official100testobjects remainunopened",
+  "metrics": "Perquery andequal-query meanrelativeerror, signederror andnormalizedMSE usingtrainingRMS forreporting only; original15queries reportedseparately",
+  "limits": "Same scattering-operator family anddevelopmentobjectdistribution; this isquerytransfer, notindependentmaterialproperty validation or finalblindtest",
+  "comparison": "Frozen image/joint predictors; completedNPPC sample/fixed andfuture-updatecandidate readouts whenavailable. A separately fittednew-query Ridge isalabeled supervisedcontrol, nevercalledzeroshot."
+}

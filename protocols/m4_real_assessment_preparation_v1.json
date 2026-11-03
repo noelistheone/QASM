@@ -1,0 +1,92 @@
+{
+  "status": "prospective_assessment_specification_before_real_test_scores",
+  "created_utc": "2026-11-01T17:08:14.441266+00:00",
+  "scientific_contract": "protocols/m4_real_response_learning_v1.json",
+  "scientific_contract_sha256": "c6d66066e8c9d5cb5f5c43ef1aebd6ca2dfa4d355ba89e6b0b1c364da4cfdfc3",
+  "roles": {
+    "test": [
+      "LFP",
+      "NCM"
+    ],
+    "validation_family_stress": [
+      "FLY1"
+    ]
+  },
+  "fractions": [
+    0.1,
+    0.25,
+    0.5
+  ],
+  "learned_models": [
+    "moment",
+    "coherent",
+    "direct"
+  ],
+  "seeds": [
+    20270121,
+    20270122,
+    20270123
+  ],
+  "baseline_families": [
+    "lsqml_v1_100",
+    "lsqml_v1_300",
+    "lsqml_v1_1000",
+    "lsqml_v2_1000",
+    "lsqml_v2_3000",
+    "lsqml_v2_5000",
+    "public_pinn_crop64",
+    "public_pinn_crop10",
+    "nearest1",
+    "idw4",
+    "idw16",
+    "shared_training_scale"
+  ],
+  "primary_family": "moment",
+  "primary_reference": "lsqml_v2_5000",
+  "counts": {
+    "learned_fit_versions": 9,
+    "baseline_families": 12,
+    "prediction_versions_per_scan_budget": 21,
+    "scan_budget_conditions": 9,
+    "prediction_condition_rows": 189,
+    "aggregated_family_condition_rows": 135
+  },
+  "metrics": {
+    "primary_per_scan": "sqrt(sum_query_frames_pixels((prediction-target)^2)/sum_query_frames_pixels(target^2)) in unchanged raw archived units",
+    "primary_aggregate": "For each seed/model compute scan-level RMSE; average errors across all3seeds, then equally acrossLFP/NCM and equally across3budgets. Do not ensemble intensities, poolpixelsacrossscans, or selectseed/budget.",
+    "secondary": [
+      "amplitude_relative_rmse",
+      "fluence_relative_rmse",
+      "32fixedannulus-sector integrated_intensity relativeandabsoluteRMSE",
+      "unscaledintensityabsoluteRMSE",
+      "totalpredicted/targetintensity",
+      "allzero_reference/prediction_framecounts"
+    ],
+    "detector_cells": {
+      "radial_edges": [
+        0.0,
+        0.125,
+        0.25,
+        0.5,
+        0.7071067811865476
+      ],
+      "angular_sectors": 8,
+      "coordinates": "fftshift(fftfreq(64)), computationalpixelreciprocalunits; no absoluteq orphotonfluxclaim",
+      "center": "atan2(0,0)=0 conventional sector; lastannulusincludesmaxcorner",
+      "zero_denominator": "Keep region with relativeRMSE=null,absoluteRMSE andzero_referenceflag. No eps-rescaling or data-dependent drops."
+    },
+    "uncertainty": "Report everyseed andseedSD. Twoheldoutmaterialfamilies donotsupport populationinference; no pixelbootstrap or treatingseeds/budgets asindependentspecimens.",
+    "stress": "FLY1 reportedseparately atallbudgets; relatedTPfamilyseeninvalidation; never pooledintomaterialtestmacro."
+  },
+  "procedures": {
+    "before_freeze": "Allninefitscompletedsuccessfully; alltrainingandvalidationcurvesreviewed; explicitdecision run_declared_v1_assessment; all24standard1000 and5000baselinescomplete; public24/interpolation24/scalar24complete.",
+    "prediction": "Hash selectedcheckpoints/allcommoninputs/code. Produceall81learned scan/budget predictions andverifyall108fixedbaseline predictions beforetargetsareloaded.",
+    "scoring": "Separateprocess; rawtruthindexedonlybyfixedquery_ids; allpredictionsalreadyhashverified andunchanged; abortoninvalid/missingartifact,no silentdropping.",
+    "historical_data_access": "Data-contract audits previously inspectedrawscanstatistics andfullscanreferenceforward residuals. Thisis a newfamily-separated predictiveevaluation withunscoredquerytargets, not anassertionthattheoriginalarchiveswere neverinspected.",
+    "calibration": "Allmethodsreceive samefullscanestimatedprobeandknowncoordinates/canvas. Conditionalcalibration-assisted evaluation.",
+    "geometry": "StoredoriginalframeIDs; per-source calibratedorigins alreadychecked; no alignment/rescalingagainstquerytruth."
+  },
+  "selection": "OnlyTP1/TP2validationchooselearnedcheckpoints;no heldout-based method,rank,preprocessing,metricorbaseline selection.",
+  "final_freeze_path": "protocols/m4_real_assessment_frozen_v1.json",
+  "scoring_has_not_started": true
+}

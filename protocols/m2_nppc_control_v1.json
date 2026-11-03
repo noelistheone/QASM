@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "status": "Frozen design; not trained yet, waiting for completed mean predictor",
+  "reference": "Nehme/Yair/Michaeli NeurIPS2023 Eqs3–5, SIAppendixA, officialcommit b78223149f6ffcdf1f4da590ab1944329a7f1da1",
+  "implementation": "Independent implementation from published mathematics in src/posterior_components.py; vendor code is reference-only, no license file found",
+  "mean_predictor": "image_seed20261117 in m2_mask_learning_20261101; use its completed validation-selected best.pt, record exact hash before any covariance training; no seed selection",
+  "data": "m2_mask_features_v1 covariance_train4000 only; disjoint from mean_train4000; fresh training noise and random masks exactly as m2_mask_conditioned_learning_v2",
+  "rank": 8,
+  "input": "observation-only actualsubsetCG30 feature, frozen mean prediction and30-block mask",
+  "output": "ordered orthogonal image directions and positive norms via modified Gram-Schmidt with detached preceding directions; no copied third-party source",
+  "variants": {
+    "sample": "Official per-sample residual-energy normalization in both direction and variance losses; report its weighted estimand",
+    "fixed": "Same losses with a positive fixed training residual-energy scale; estimates ordinary residual second moments, equal to covariance only for an exact conditional mean"
+  },
+  "fixed_energy_scale": "Mean squared residual norm on first512 covariance-training IDs at fixed extra budgets0,2,5,10, using frozen full-rig observations and the frozen mean; no validation/assessment labels",
+  "training": {
+    "seeds": [
+      20261120,
+      20261121,
+      20261122
+    ],
+    "steps": 4000,
+    "batch": 128,
+    "optimizer": "Adam lr1e-4, betas.9/.999, no weightdecay, normclip10",
+    "variance_weight": "0.1 * clip(-1 + 2*(step-1)/200, 1e-6, 1), matching the official ramp rule",
+    "validation": "every400steps, first256validation IDs, budgets0/2/5/10; each variant selects its own native objective, with all physical-query diagnostics also saved",
+    "precision": "float32, TF32 disabled, no AMP"
+  },
+  "report": [
+    "orthogonality and finite/degenerate factors",
+    "captured residual energy fraction and variance fit",
+    "plugin vs mean-plus-propagated-factor query outputs for all15queries",
+    "actual image mean unchanged",
+    "fullruntime andmemory",
+    "per-object budgets and allseeds"
+  ],
+  "followup_gate": "Compare same architecture trained through physical future-observation updates only after this control is operational; PSD output and an algebraic covariance formula do not certify calibrated posterior inference",
+  "official_test_opened": false
+}
